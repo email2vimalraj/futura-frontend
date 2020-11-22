@@ -1,10 +1,15 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import {
+  faArrowAltCircleRight,
+  faEnvelope,
+} from "@fortawesome/free-solid-svg-icons";
 import "tailwindcss/tailwind.css";
 import "../styles/globals.css";
 
 library.add(fab, faEnvelope);
+library.add(far, faArrowAltCircleRight);
 
 // import "../styles/font-awesome.css";
 // import "../styles/screen.css";
