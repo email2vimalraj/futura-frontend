@@ -31,79 +31,77 @@ const Product = ({ image, title, subtitle }) => (
   </div>
 );
 
-export default function Products() {
+export default function Products({ data }) {
   return (
     <Layout>
-      <div className="flex flex-col bg-white container mx-auto justify-start pt-10 items-center">
-        <div className="w-1/2">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full border border-solid border-gray-700 p-5 font-futuraBookRegular uppercase text-lg text-gray-700 outline-none"
-          />
-        </div>
-
-        <span className="font-futuraBookRegular text-md lowercase italic text-gray-800 pt-3 pb-3 leading-4 text-center mb-8">
-          please enter the text as "beam angle 12" or "warm white downlights" or
-          "round shape surface"
-        </span>
-
-        <ul className="list-none text-center flex flex-wrap justify-center space-x-4 container w-4/6">
-          <FilterButton href="#">Architectural</FilterButton>
-          <FilterButton href="#">Downlights</FilterButton>
-          <FilterButton href="#">Spotlights</FilterButton>
-          <FilterButton href="#">Wall / Ceiling</FilterButton>
-          <FilterButton href="#">Tracklights</FilterButton>
-          <FilterButton href="#">Outdoor</FilterButton>
-          <FilterButton href="#">Underwater</FilterButton>
-          <FilterButton href="#">Floorlights</FilterButton>
-        </ul>
-
-        <section>
-          <div className="flex flex-wrap justify-center">
-            <Product
-              image="/products/1.png"
-              title="NIYU"
-              subtitle="Indoor Light"
-            />
-            <Product
-              image="/products/2.png"
-              title="Neo"
-              subtitle="Outdoor Light"
-            />
-            <Product
-              image="/products/3.png"
-              title="NIYU"
-              subtitle="Indoor Light"
-            />
-            <Product
-              image="/products/4.png"
-              title="NIYU"
-              subtitle="Indoor Light"
-            />
-            <Product
-              image="/products/5.png"
-              title="NIYU"
-              subtitle="Indoor Light"
-            />
-            <Product
-              image="/products/6.png"
-              title="NIYU"
-              subtitle="Indoor Light"
-            />
-            <Product
-              image="/products/7.png"
-              title="NIYU"
-              subtitle="Indoor Light"
-            />
-            <Product
-              image="/products/8.png"
-              title="NIYU"
-              subtitle="Indoor Light"
+      <div className="flex">
+        <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0 items-center">
+          <div className="w-1/2">
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full border border-solid border-gray-700 p-5 font-futuraBookRegular uppercase text-lg text-gray-700 outline-none"
             />
           </div>
-        </section>
+
+          <span className="font-futuraBookRegular text-md lowercase italic text-gray-800 pt-3 pb-3 leading-4 text-center mb-8">
+            please enter the text as "beam angle 12" or "warm white downlights"
+            or "round shape surface"
+          </span>
+
+          <ul className="list-none text-center flex flex-wrap justify-center space-x-4 container w-4/6">
+            <FilterButton href="#">Architectural</FilterButton>
+            <FilterButton href="#">Downlights</FilterButton>
+            <FilterButton href="#">Spotlights</FilterButton>
+            <FilterButton href="#">Wall / Ceiling</FilterButton>
+            <FilterButton href="#">Tracklights</FilterButton>
+            <FilterButton href="#">Outdoor</FilterButton>
+            <FilterButton href="#">Underwater</FilterButton>
+            <FilterButton href="#">Floorlights</FilterButton>
+          </ul>
+
+          <section>
+            <div className="flex flex-wrap justify-center">
+              {data.map((item) => {
+                const cutout = item.Content.filter(
+                  (content) => content.__component === "product.cutout"
+                );
+
+                return (
+                  <Product
+                    key={item._id}
+                    title={item.Name}
+                    subtitle={item.Type}
+                    image={`http://128.199.227.150:1337${cutout[0].Images[0].url}`}
+                  />
+                );
+              })}
+            </div>
+          </section>
+        </div>
+
+        <div
+          style={{ backgroundImage: "url(/LogoRight.jpg)" }}
+          className="w-1/12 bg-no-repeat bg-right-bottom"
+        ></div>
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const res = await fetch("http://128.199.227.150:1337/products");
+  const data = await res.json();
+
+  if (!data) {
+    console.error("not found");
+    return {
+      notFound: true,
+    };
+  }
+
+  console.log(data);
+  return {
+    props: { data },
+  };
 }
