@@ -17,6 +17,7 @@ const Menu = () => {
       <ul className="menu-list text-white text-xs uppercase absolute max-w-xs right-8 left-8 list-none">
         <MenuLink href="/" text="Home" />
         <MenuLink href="/about" text="About Us" />
+        <MenuLink href="/products" text="Products" />
         <MenuLink href="/" text="Projects" />
         <MenuLink href="/" text="News Events" />
         <MenuLink href="/" text="Technology" />

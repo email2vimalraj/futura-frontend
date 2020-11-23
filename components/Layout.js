@@ -111,7 +111,7 @@ const Footer = () => {
 
 const Layout = ({ children }) => {
   return (
-    <div className="w-screen h-screen bg-gray-600 relative">
+    <div className="w-screen h-screen bg-white relative">
       <Nav />
 
       <div className="sections-wrap relative">
