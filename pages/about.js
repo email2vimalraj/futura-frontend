@@ -1,36 +1,23 @@
-import { faArrowAltCircleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Layout from "../components/Layout";
 
 const AboutBlock = ({ title, subtitle, children }) => (
-  <div className="abtShortTip float-left w-4/12 block clear-right">
-    <div>
-      <div className="AbtTitle font-futuraBookRegular text-sm uppercase tracking wide font-bold float-left">
-        <span className="text-gray-500">{title}</span>
-        <span className="text-gray-400">{subtitle}</span>
-      </div>
+  <div className="border border-solid border-gray-300 md:border-none flex flex-col items-center p-3">
+    <div className="uppercase">
+      <span className="text-gray-500">{title} </span>
+      <span className="text-gray-400">{subtitle}</span>
+    </div>
 
-      <div className="abountCntTxt float-left pt-5 pl-5 pr-5 font-futuraBookRegular text-lg text-gray-500 leading-8 text-justify">
-        {children}
-      </div>
+    <div className="mt-4 pb-3 border-b border-solid border-gray-400 text-gray-900">
+      {children}
+    </div>
 
-      <div className="pt-2.5 pb-2.5 w-full block float-left clear-right">
-        <div className="mr-5 ml-5 border-b border-solid border-gray-400" />
-      </div>
-
-      <div className="w-full block float-left clear-right">
-        <div className="float-right pt-2.5 mr-5 ml-5">
-          <a href="#" className="text-black">
-            <span className="font-futuraBookRegular text-sm font-italic pr-1.5">
-              View More
-            </span>
-            <FontAwesomeIcon
-              icon={["far", "arrow-alt-circle-right"]}
-              className="text-xs"
-            />
-          </a>
-        </div>
-      </div>
+    <div className="ml-auto italic mt-3 text-sm">
+      View More{" "}
+      <FontAwesomeIcon
+        icon={["far", "arrow-alt-circle-right"]}
+        className="text-xs"
+      />
     </div>
   </div>
 );
@@ -39,17 +26,29 @@ export default function AboutPage() {
   return (
     <>
       <Layout>
-        <div className="flex bg-white">
-          <div className="border-r border-solid border-gray-900">
-            <section className="relative z-10 clearfix bg-white h-screen">
-              <div className="content-section container mx-auto relative w-screen clearfix flex">
-                <div className="w-1/2 block float-left clear-right">
-                  <div className="abtTitle font-futuraBookRegular text-sm uppercase tracking wide font-bold float-left">
+        <div className="flex">
+          <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0 items-center">
+            <img
+              src="/FuturaLogoDark.svg"
+              alt="Futura Logo"
+              className="p-8 lg:hidden"
+            />
+
+            <section className="p-4">
+              <div className="flex flex-wrap lg:flex-nowrap">
+                <div className="font-futuraBookRegular tracking-wider leading-8 w-full">
+                  <div>
                     <span className="text-gray-500">About Futura Tech</span>
                     <span className="text-gray-400">Dynamics</span>
                   </div>
 
-                  <div className="abtCntTxt float-left pt-5 pl-5 pr-5 font-futuraBookRegular text-lg text-gray-500 leading-8 text-justify">
+                  <img
+                    src="/AboutPage.jpg"
+                    alt="About Futura"
+                    className="border border-solid border-gray-300 lg:border-none p-3 lg:p-0 lg:hidden m-auto mb-3 mt-3"
+                  />
+
+                  <div>
                     <p>
                       With over a decade of rich experience in architectural
                       lighting FUTURA is an established entity in the lighting
@@ -82,20 +81,14 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                <div className="w-4/12 block float-left clear-right">
-                  <div className="abtImg">
-                    <img
-                      src="/AboutPage.jpg"
-                      alt="About Futura"
-                      className="w-full"
-                    />
-                  </div>
-                </div>
+                <img
+                  src="/AboutPage.jpg"
+                  alt="About Futura"
+                  className="w-full h-full lg:w-1/2 lg:h-1/2 border border-solid border-gray-300 md:border-none p-3 md:p-0 hidden lg:block"
+                />
               </div>
-            </section>
 
-            <section className="relative z-10 clearfix">
-              <div className="content-section container mx-auto relative w-screen clearfix flex">
+              <div className="mt-10 md:mt-16 flex flex-col md:flex-row space-y-3 space-x-0 md:space-x-3 md:space-y-0 font-futuraBookRegular tracking-wide leading-7">
                 <AboutBlock title="About Futura Tech " subtitle="Dynamics">
                   Lorem ipsum dolor sit amet consectetur adipisicing, elit.
                   Distinctio, officiis ullam. Similique fuga tempora reiciendis,
@@ -122,7 +115,7 @@ export default function AboutPage() {
 
           <div
             style={{ backgroundImage: "url(/LogoRight.jpg)" }}
-            className="bg-no-repeat bg-white w-full flex-grow-0"
+            className="w-1/12 bg-no-repeat bg-right-bottom hidden lg:block"
           />
         </div>
       </Layout>
