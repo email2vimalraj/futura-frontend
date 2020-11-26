@@ -82,7 +82,7 @@ export default function Products({ data }) {
 
         <div
           style={{ backgroundImage: "url(/LogoRight.jpg)" }}
-          className="w-1/12 bg-no-repeat bg-right-bottom"
+          className="w-1/12 bg-no-repeat bg-right-bottom hidden lg:block"
         ></div>
       </div>
     </Layout>
