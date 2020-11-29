@@ -1,37 +1,63 @@
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import Layout from "../components/Layout";
 
-const FilterButton = ({ href, children }) => {
-  return (
-    <li className="text-black uppercase font-futuraBookRegular text-xl p-5 m-5 border-b border-t border-solid border-gray-500 text-center hover:bg-gray-500 hover:text-white">
-      <a href={href} className="no-underline">
-        {children}
-      </a>
-    </li>
-  );
-};
-
-const Product = ({ image, title, subtitle }) => (
+const Product = ({ id, image, title, subtitle }) => (
   <div className="">
-    <a href="#">
-      <div className="block bg-gray-400 overflow-hidden m-3 w-80 float-left clear-right">
-        <div className="w-72 h-72 absolute z-10 bg-transparent bg-opacity-0 hover:bg-black hover:bg-opacity-80 m-4 opacity-0 hover:opacity-100">
-          <div className="relative font-futuraBookRegular text-3xl uppercase text-white m-auto text-center pt-20 pb-20">
-            <span>{title}</span>
+    <Link href={`/product/${id}`}>
+      <a>
+        <div className="block bg-gray-400 overflow-hidden m-3 w-80 float-left clear-right">
+          <div className="w-72 h-72 absolute z-10 bg-transparent bg-opacity-0 hover:bg-black hover:bg-opacity-80 m-4 opacity-0 hover:opacity-100">
+            <div className="relative font-futuraBookRegular text-3xl uppercase text-white m-auto text-center pt-20 pb-20">
+              <span>{title}</span>
+            </div>
+            <div className="relative font-futuraBookRegular text-xl lowercase text-gray-400 m-auto text-center pt-15 pb-15">
+              <span>{subtitle}</span>
+            </div>
           </div>
-          <div className="relative font-futuraBookRegular text-xl lowercase text-gray-400 m-auto text-center pt-15 pb-15">
-            <span>{subtitle}</span>
-          </div>
-        </div>
 
-        <div>
-          <img src={image} alt={`${title} - ${subtitle}`} />
+          <div>
+            <Image
+              src={`http://localhost:1337${image.Image.formats.medium.url}`}
+              alt={`${title} - ${subtitle}`}
+              width={`http://localhost:1337${image.Image.formats.medium.width}`}
+              height={`http://localhost:1337${image.Image.formats.medium.height}`}
+              layout="responsive"
+            />
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </Link>
   </div>
 );
 
 export default function Products({ data }) {
+  const [selectedCategory, setSelectedCategory] = React.useState(null);
+  const [products, setProducts] = React.useState([]);
+
+  React.useEffect(() => {
+    if (selectedCategory) {
+      const filteredProducts = data.filter(
+        (category) => category.CategoryName === selectedCategory
+      )[0].products;
+      setProducts(filteredProducts);
+    } else {
+      const allProducts = data.map((category) => {
+        return category.products;
+      });
+      setProducts(allProducts.flat());
+    }
+  }, [data, selectedCategory]);
+
+  const filterProductsByCategory = (category) => {
+    if (category === selectedCategory) {
+      setSelectedCategory(null);
+    } else {
+      setSelectedCategory(category);
+    }
+  };
+
   return (
     <Layout>
       <div className="flex">
@@ -50,17 +76,51 @@ export default function Products({ data }) {
           </span>
 
           <ul className="list-none text-center flex flex-wrap justify-center space-x-4 container w-4/6">
-            <FilterButton href="#">Architectural</FilterButton>
-            <FilterButton href="#">Downlights</FilterButton>
-            <FilterButton href="#">Spotlights</FilterButton>
-            <FilterButton href="#">Wall / Ceiling</FilterButton>
-            <FilterButton href="#">Tracklights</FilterButton>
-            <FilterButton href="#">Outdoor</FilterButton>
-            <FilterButton href="#">Underwater</FilterButton>
-            <FilterButton href="#">Floorlights</FilterButton>
+            {data.map((item) => {
+              return (
+                <li
+                  key={item._id}
+                  className={`${
+                    item.CategoryName === selectedCategory
+                      ? "bg-gray-500 text-white"
+                      : ""
+                  } text-black uppercase font-futuraBookRegular text-sm md:text-xl p-3 md:p-5 m-3 md:m-5 border-b border-t border-solid border-gray-500 text-center hover:bg-gray-500 hover:text-white`}
+                >
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => filterProductsByCategory(item.CategoryName)}
+                  >
+                    {item.CategoryName}
+                  </div>
+                </li>
+              );
+            })}
           </ul>
 
           <section>
+            <div className="flex flex-wrap justify-center">
+              {products.map((product) => {
+                const productImages = product.Content.filter(
+                  (item) => item.__component === "image.product-images"
+                )[0].ProductImage;
+                const frontImage = productImages.filter(
+                  (image) => image.FrontImage
+                )[0];
+
+                return (
+                  <Product
+                    key={frontImage._id}
+                    id={product._id}
+                    title={product.Name}
+                    subtitle={product.Type}
+                    image={frontImage}
+                  />
+                );
+              })}
+            </div>
+          </section>
+
+          {/* <section>
             <div className="flex flex-wrap justify-center">
               {data.map((item) => {
                 const cutout = item.Content.filter(
@@ -70,27 +130,28 @@ export default function Products({ data }) {
                 return (
                   <Product
                     key={item._id}
+                    id={item._id}
                     title={item.Name}
                     subtitle={item.Type}
-                    image={`http://128.199.227.150:1337${cutout[0].Images[0].url}`}
+                    image={`http://localhost:1337${cutout[0].Images[0].url}`}
                   />
                 );
               })}
             </div>
-          </section>
+          </section> */}
         </div>
 
         <div
           style={{ backgroundImage: "url(/LogoRight.jpg)" }}
           className="w-1/12 bg-no-repeat bg-right-bottom hidden lg:block"
-        ></div>
+        />
       </div>
     </Layout>
   );
 }
 
-export async function getServerSideProps(context) {
-  const res = await fetch("http://128.199.227.150:1337/products");
+export async function getServerSideProps({}) {
+  const res = await fetch("http://localhost:1337/categories");
   const data = await res.json();
 
   if (!data) {
