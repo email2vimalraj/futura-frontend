@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Layout from "../components/Layout";
+import { API_URL, fetchQuery } from "../utils";
 
 const Product = ({ id, image, title, subtitle }) => (
   <div className="">
@@ -19,10 +20,10 @@ const Product = ({ id, image, title, subtitle }) => (
 
           <div>
             <Image
-              src={`http://localhost:1337${image.Image.formats.medium.url}`}
+              src={`${API_URL}${image.Image.formats.medium.url}`}
               alt={`${title} - ${subtitle}`}
-              width={`http://localhost:1337${image.Image.formats.medium.width}`}
-              height={`http://localhost:1337${image.Image.formats.medium.height}`}
+              width={`${API_URL}${image.Image.formats.medium.width}`}
+              height={`${API_URL}${image.Image.formats.medium.height}`}
               layout="responsive"
             />
           </div>
@@ -133,7 +134,7 @@ export default function Products({ data }) {
                     id={item._id}
                     title={item.Name}
                     subtitle={item.Type}
-                    image={`http://localhost:1337${cutout[0].Images[0].url}`}
+                    image={`${API_URL}${cutout[0].Images[0].url}`}
                   />
                 );
               })}
@@ -151,8 +152,7 @@ export default function Products({ data }) {
 }
 
 export async function getServerSideProps({}) {
-  const res = await fetch("http://localhost:1337/categories");
-  const data = await res.json();
+  const data = await fetchQuery("categories");
 
   if (!data) {
     console.error("not found");

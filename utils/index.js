@@ -1,0 +1,11 @@
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+async function fetchQuery(path) {
+  const url = `${API_URL}/${path}`;
+  const response = await fetch(url);
+  const data = await response.json();
+
+  return data;
+}
+
+export { API_URL, fetchQuery };

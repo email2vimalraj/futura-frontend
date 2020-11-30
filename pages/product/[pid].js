@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Layout from "../../components/Layout";
+import { API_URL, fetchQuery } from "../../utils";
 
 export default function Product({ data }) {
   const [imageHolder, setImageHolder] = React.useState(null);
@@ -46,7 +47,7 @@ export default function Product({ data }) {
             <div className="flex flex-col space-y-4">
               {imageHolder && (
                 <Image
-                  src={`http://localhost:1337${imageHolder.Image.url}`}
+                  src={`${API_URL}${imageHolder.Image.url}`}
                   alt={imageHolder.Image.alternativeText}
                   width={imageHolder.Image.width / 2}
                   height={imageHolder.Image.height / 2}
@@ -62,7 +63,7 @@ export default function Product({ data }) {
                     className="mr-3 cursor-pointer"
                   >
                     <Image
-                      src={`http://localhost:1337${image.Image.formats.thumbnail.url}`}
+                      src={`${API_URL}${image.Image.formats.thumbnail.url}`}
                       alt={`${image.Image.alternativeText}`}
                       width={image.Image.formats.thumbnail.width / 2}
                       height={image.Image.formats.thumbnail.height / 2}
@@ -110,7 +111,7 @@ export default function Product({ data }) {
               return (
                 <Image
                   key={image._id}
-                  src={`http://localhost:1337${image.url}`}
+                  src={`${API_URL}${image.url}`}
                   alt={image.alternativeText}
                   width={image.width / 2}
                   height={image.height / 2}
@@ -130,8 +131,7 @@ export default function Product({ data }) {
 }
 
 export async function getServerSideProps({ params }) {
-  const res = await fetch(`http://localhost:1337/products/${params.pid}`);
-  const data = await res.json();
+  const data = await fetchQuery(`products/${params.pid}`);
 
   if (!data) {
     console.error("not found");
