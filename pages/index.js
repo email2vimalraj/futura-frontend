@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Carousell from "../components/Carousell";
 import Layout from "../components/Layout";
+import Preloader from "../components/Preloader";
 
 const ContentSection = () => {
   return (
@@ -53,6 +54,8 @@ const ContentSection = () => {
 export default function Home() {
   return (
     <Layout>
+      <Preloader />
+
       <div className="social absolute top-10 right-10 whitespace-nowrap flex space-x-3 text-white text-md z-50 clearfix">
         <a href="/" title="Facebook" target="_blank">
           <FontAwesomeIcon icon={["fab", "facebook-square"]} />
