@@ -1,27 +1,51 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useInView } from "react-intersection-observer";
+
 import Carousell from "../components/Carousell";
 import Layout from "../components/Layout";
 import Preloader from "../components/Preloader";
 
+import styles from "./index.module.css";
+
 const ContentSection = () => {
+  const { ref, inView } = useInView();
+
+  console.log(inView);
+
   return (
-    <section className="relative z-10 clearfix inline-block">
+    <section className="relative z-10 clearfix inline-block mb-10">
       <div className="content-section pt-28 pb-36 pl-56 my-0 mx-auto relative w-screen">
-        <div className="weare block float-left clear-right w-2/6">
+        <div ref={ref} className="weare block float-left clear-right w-2/6">
           <a
             href="/"
             className="relative w-auto h-96 block overflow-hidden p-5"
           >
-            <div className="line-1 w-full top-0 left-0 h-0.5 bg-black absolute">
+            <div
+              className={`line-1 w-0 top-0 left-0 h-0.5 bg-black absolute ${
+                inView ? styles.inviewHorizontal1 : ""
+              }`}
+            >
               <i className="left-0 top-0 block absolute h-full" />
             </div>
-            <div className="line-2 h-full top-0 right-0 w-0.5 bg-black absolute">
+            <div
+              className={`line-2 h-0 top-0 right-0 w-0.5 bg-black absolute ${
+                inView ? styles.inviewVertical2 : ""
+              }`}
+            >
               <i className="left-0 top-0 block absolute w-full" />
             </div>
-            <div className="line-3 w-full right-0 bottom-0 h-0.5 bg-black absolute">
+            <div
+              className={`line-3 w-0 right-0 bottom-0 h-0.5 bg-black absolute ${
+                inView ? styles.inviewHorizontal3 : ""
+              }`}
+            >
               <i className="right-0 top-0 block absolute h-full" />
             </div>
-            <div className="line-4 h-full left-0 bottom-0 w-0.5 bg-black absolute">
+            <div
+              className={`line-4 h-0 left-0 bottom-0 w-0.5 bg-black absolute ${
+                inView ? styles.inviewVertical4 : ""
+              }`}
+            >
               <i className="bottom-0 left-0 block absolute w-full" />
             </div>
             <div

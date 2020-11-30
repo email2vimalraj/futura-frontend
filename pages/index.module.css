@@ -1,0 +1,19 @@
+.inviewHorizontal1 {
+  transition: background 0.4s ease, width 0.4s ease-out;
+  width: 100%;
+}
+
+.inviewVertical2 {
+  transition: background 0.4s ease, height 0.4s ease-out 0.4s;
+  height: 100%;
+}
+
+.inviewHorizontal3 {
+  transition: background 0.4s ease, width 0.4s ease-out 0.8s;
+  width: 100%;
+}
+
+.inviewVertical4 {
+  transition: background 0.4s ease, height 0.4s ease-out 1.2s;
+  height: 100%;
+}
