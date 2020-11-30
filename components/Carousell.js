@@ -1,4 +1,79 @@
+import React from "react";
+import { animated, config, useSpring, useTransition } from "react-spring";
 import { Logo } from "./Logo";
+
+const images = [
+  {
+    id: 2,
+    url: "/home/2x.jpg",
+  },
+  {
+    id: 3,
+    url: "/home/3x.jpg",
+  },
+  {
+    id: 4,
+    url: "/home/4x.jpg",
+  },
+  {
+    id: 5,
+    url: "/home/5x.jpg",
+  },
+  {
+    id: 6,
+    url: "/home/6x.jpg",
+  },
+  {
+    id: 1,
+    url: "/home/1x.jpg",
+  },
+];
+
+const Image = ({ url, duration }) => {
+  const props = useSpring({
+    from: { transform: "scale(1)" },
+    to: { transform: "scale(1.1)" },
+    config: {
+      duration: duration - 2000,
+    },
+  });
+
+  return (
+    <animated.div
+      className="absolute bg-cover w-full h-full l-0 t-0 bg-center bg-no-repeat"
+      style={{ ...props, backgroundImage: url }}
+    />
+  );
+};
+
+const ImageSlider = () => {
+  const duration = 5000;
+  const [index, setIndex] = React.useState(0);
+
+  const transitions = useTransition(images[index], (item) => item.id, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: config.slow,
+  });
+
+  React.useEffect(() => {
+    const interval = setInterval(
+      () => setIndex((state) => (state + 1) % 4),
+      duration
+    );
+
+    return function cleanup() {
+      clearInterval(interval);
+    };
+  }, []);
+
+  return transitions.map(({ item, props, key }) => (
+    <animated.div key={key} style={{ ...props }}>
+      <Image url={`url(${item.url})`} duration={duration} />
+    </animated.div>
+  ));
+};
 
 const Carousell = () => {
   return (
@@ -8,10 +83,12 @@ const Carousell = () => {
       </div>
 
       <div className="bg-slider absolute w-full h-full t-0 l-0 z-0">
-        <div
+        {/* <div
           style={{ backgroundImage: "url(/home/2x.jpg)" }}
           className="absolute bg-cover w-full h-full l-0 t-0 bg-center bg-no-repeat"
-        />
+        /> */}
+
+        <ImageSlider />
       </div>
     </section>
   );
