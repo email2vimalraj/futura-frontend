@@ -16,14 +16,17 @@ export default function TopProgressBar() {
   });
 
   const preloaderProps = useSpring({
-    from: { opacity: 1, zIndex: 100000 },
-    to: { opacity: 0, zIndex: 0 },
+    from: { opacity: 1, zIndex: 100000, width: "100%", height: "100%" },
+    to: async (next, cancel) => {
+      await next({ opacity: 0, zIndex: 0 });
+      await next({ width: "0%", height: "0%" });
+    },
     delay: 2200,
   });
 
   return (
     <animated.div
-      className={`fixed left-0 top-0 w-full h-full bg-black`}
+      className={`fixed left-0 top-0 bg-black`}
       style={{
         ...preloaderProps,
         transitionProperty: "transform, opacity",
