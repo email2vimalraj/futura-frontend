@@ -1,4 +1,5 @@
 import React from "react";
+import { animated, useSpring } from "react-spring";
 
 const MenuLink = ({ href, text }) => (
   <li>
@@ -39,11 +40,22 @@ const Menu = () => {
 const Nav = () => {
   const [openMenu, setOpenMenu] = React.useState(false);
 
+  const menuAnimProp = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    delay: 2200,
+  });
+
   return (
-    <div className="nav-main absolute top-0 left-0 z-50">
+    <animated.div
+      className="nav-main absolute top-0 left-0 z-50"
+      style={menuAnimProp}
+    >
       <nav
         className={`nav fixed h-full ${
-          openMenu ? "w-80 bg-black" : "w-20 bg-transparent"
+          openMenu
+            ? "w-80 bg-black transition duration-500 ease-out"
+            : "w-20 bg-transparent"
         }`}
       >
         <div
@@ -67,7 +79,7 @@ const Nav = () => {
 
         {openMenu && <Menu />}
       </nav>
-    </div>
+    </animated.div>
   );
 };
 
