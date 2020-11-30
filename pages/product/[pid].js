@@ -34,7 +34,7 @@ export default function Product({ data }) {
     <Layout>
       <TopProgressBar />
 
-      <div className="flex">
+      <div className="flex p-2 md:p-0 md:container md:mx-auto justify-center">
         <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0">
           <div className="flex font-futuraBookRegular text-sm border-b border-solid border-black mb-4 pb-2">
             <div className="uppercase">
@@ -89,7 +89,7 @@ export default function Product({ data }) {
                 {meta.map((item) => (
                   <div
                     key={item._id}
-                    className="border border-solid border-gray-800 p-3 w-1/4 m-3"
+                    className="border border-solid border-gray-800 p-3 w-full md:w-1/4 mb-3 mr-0 md:mr-3"
                   >
                     <h3 className="uppercase text-sm tracking-wide">
                       {item.meta.MetaName}
