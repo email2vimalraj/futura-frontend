@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import Layout from "../../components/Layout";
 import { API_URL, fetchQuery } from "../../utils";
@@ -38,7 +39,9 @@ export default function Product({ data }) {
         <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0">
           <div className="flex font-futuraBookRegular text-sm border-b border-solid border-black mb-4 pb-2">
             <div className="uppercase">
-              <a href="/products">Products</a>
+              <Link href="/products">
+                <a>Products</a>
+              </Link>
               &nbsp;&gt;&nbsp;
               <span>{data.category.CategoryName}</span>
             </div>
