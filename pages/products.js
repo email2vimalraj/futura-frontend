@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Layout from "../components/Layout";
 import { API_URL, fetchQuery } from "../utils";
+import TopProgressBar from "../components/TopProgressBar";
 
 const Product = ({ id, image, title, subtitle }) => (
   <div className="">
@@ -61,6 +62,8 @@ export default function Products({ data }) {
 
   return (
     <Layout>
+      <TopProgressBar />
+
       <div className="flex">
         <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0 items-center">
           <div className="w-1/2">

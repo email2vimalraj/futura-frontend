@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Layout from "../../components/Layout";
 import { API_URL, fetchQuery } from "../../utils";
+import TopProgressBar from "../../components/TopProgressBar";
 
 export default function Product({ data }) {
   const [imageHolder, setImageHolder] = React.useState(null);
@@ -31,6 +32,8 @@ export default function Product({ data }) {
 
   return (
     <Layout>
+      <TopProgressBar />
+
       <div className="flex">
         <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0">
           <div className="flex font-futuraBookRegular text-sm border-b border-solid border-black mb-4 pb-2">

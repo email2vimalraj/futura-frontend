@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Layout from "../components/Layout";
+import TopProgressBar from "../components/TopProgressBar";
 
 const AboutBlock = ({ title, subtitle, children }) => (
   <div className="border border-solid border-gray-300 md:border-none flex flex-col items-center p-3">
@@ -26,6 +28,8 @@ export default function AboutPage() {
   return (
     <>
       <Layout>
+        <TopProgressBar />
+
         <div className="flex">
           <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0 items-center">
             <img
