@@ -17,7 +17,7 @@ const Footer = () => {
               <a href="#">CSR Activity</a>
             </li>
             <li className="mt-1">
-              <a href="#">Publication</a>
+              <a href="/publications">Publications</a>
             </li>
             <li className="mt-1">
               <a href="#">R & D</a>
