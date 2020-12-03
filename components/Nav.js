@@ -23,7 +23,7 @@ const Menu = () => {
         <MenuLink href="/" text="Projects" />
         <MenuLink href="/" text="News Events" />
         <MenuLink href="/" text="Technology" />
-        <MenuLink href="/" text="Contact Us" />
+        <MenuLink href="/contactus" text="Contact Us" />
       </ul>
 
       <div className="copyrights hidden md:block bottom-2.5 text-white text-center top-auto absolute whitespace-nowrap">
