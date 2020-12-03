@@ -18,9 +18,12 @@ export default function Preloader() {
   });
 
   const preloaderProps = useSpring({
-    from: { opacity: 1, zIndex: 100000 },
-    to: { opacity: 0, zIndex: 0 },
-    delay: 2200,
+    from: { opacity: 1, zIndex: 100000, height: "100%", width: "100%" },
+    to: async (next, cancel) => {
+      await next({ opacity: 0, zIndex: 0 });
+      await next({ width: "0%", height: "0%" });
+    },
+    delay: 2100,
   });
 
   return (
