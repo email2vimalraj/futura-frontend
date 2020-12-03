@@ -1,6 +1,5 @@
 import React from "react";
 import { animated, config, useSpring, useTransition } from "react-spring";
-import { Logo } from "./Logo";
 
 const images = [
   {
@@ -77,9 +76,13 @@ const ImageSlider = () => {
 
 const Carousell = () => {
   return (
-    <section className="home-section relative h-screen block md:flex">
-      <div className="logo absolute w-96 h-16 left-1/2 top-1/2 -ml-48 -mt-8 z-50">
-        <Logo />
+    <section className="home-section relative block md:flex h-96 md:h-screen overflow-hidden mt-8 md:mt-0">
+      <div className="logo absolute w-full h-16 left-1/2 top-1/2 -ml-48 -mt-8 z-50">
+        <img
+          src="/LogoWhite.svg"
+          alt="Futura"
+          className="w-72 md:w-96 m-auto md:m-0"
+        />
       </div>
 
       <div className="bg-slider absolute w-full h-full t-0 l-0 z-0">

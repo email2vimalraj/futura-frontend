@@ -11,10 +11,10 @@ const ContentSection = () => {
   const { ref, inView } = useInView();
 
   return (
-    <section className="flex flex-col md:flex-row md:container md:mx-auto space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-20 mb-20 px-4 justify-center">
+    <section className="flex flex-col md:flex-row md:container md:mx-auto space-y-4 md:space-y-0 space-x-0 md:space-x-4 mt-3 md:mt-20 mb-20 px-4 justify-center">
       <div
         ref={ref}
-        className="weare block float-left clear-right w-full md:w-2/6"
+        className="weare hidden md:block float-left clear-right w-full md:w-2/6"
       >
         <div className="relative w-auto h-96 block overflow-hidden p-5">
           <div

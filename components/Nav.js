@@ -53,7 +53,7 @@ const Nav = () => {
         className={`nav-main absolute top-0 left-0 z-50 bg-black md:w-auto ${
           openMenu ? "w-full h-full" : "w-0 h-0"
         }`}
-        style={menuAnimProp}
+        style={{ ...menuAnimProp, zIndex: 60 }}
       >
         <nav
           className={`nav relative md:fixed h-full ${
@@ -61,6 +61,7 @@ const Nav = () => {
               ? "w-full md:w-80 pt-4 md:pt-0 bg-black transition duration-500 ease-out"
               : "w-20 bg-transparent"
           }`}
+          style={{ zIndex: 60 }}
         >
           <div
             className={`btn-menu hidden md:block absolute left-1/2 top-12 bg-black bg-opacity-20 p-2.5 rounded-br-2xl ${
