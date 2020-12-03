@@ -10,7 +10,7 @@ const Publications = ({ data, bordercolor }) => {
       {data.map((publication) => (
         <div
           key={publication._id}
-          className={`border border-solid ${bordercolor} p-3 flex flex-col items-center font-futuraBookRegular w-1/3`}
+          className={`border border-solid ${bordercolor} p-3 flex flex-col items-center font-futuraBookRegular w-full md:w-1/3`}
         >
           <img
             src={`${publication.Image.url}`}
