@@ -77,7 +77,7 @@ const ImageSlider = () => {
 
 const Carousell = () => {
   return (
-    <section className="home-section relative h-screen hidden md:flex">
+    <section className="home-section relative h-screen block md:flex">
       <div className="logo absolute w-96 h-16 left-1/2 top-1/2 -ml-48 -mt-8 z-50">
         <Logo />
       </div>
