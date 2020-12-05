@@ -1,6 +1,6 @@
 import { animated, useSpring } from "react-spring";
 
-export default function TopProgressBar() {
+export default function TopProgressBar({ preloaderFinished }) {
   const progressBarProps = useSpring({
     from: {
       width: "0%",
@@ -13,6 +13,7 @@ export default function TopProgressBar() {
     config: {
       duration: 2000,
     },
+    onRest: () => preloaderFinished(),
   });
 
   const preloaderProps = useSpring({

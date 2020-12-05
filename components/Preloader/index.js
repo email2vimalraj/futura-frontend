@@ -2,7 +2,7 @@ import { animated, useSpring } from "react-spring";
 
 import styles from "./Preloader.module.css";
 
-export default function Preloader() {
+export default function Preloader({ preloaderFinished }) {
   const progressBarProps = useSpring({
     from: {
       height: "0%",
@@ -26,6 +26,7 @@ export default function Preloader() {
     config: {
       duration: 2000,
     },
+    onRest: () => preloaderFinished(),
   });
 
   const preloaderProps = useSpring({

@@ -1,3 +1,4 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Layout from "../components/Layout";
@@ -25,11 +26,16 @@ const AboutBlock = ({ title, subtitle, children }) => (
 );
 
 export default function AboutPage() {
+  const [preloaderFinished, setPreloaderFinished] = React.useState(false);
+
+  if (!preloaderFinished)
+    return (
+      <TopProgressBar preloaderFinished={() => setPreloaderFinished(true)} />
+    );
+
   return (
     <>
       <Layout>
-        <TopProgressBar />
-
         <div className="flex">
           <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0 items-center">
             <img

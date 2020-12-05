@@ -74,6 +74,7 @@ const index = client.initIndex("Futura_Search_Index");
 export default function Products({ data }) {
   const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [products, setProducts] = React.useState([]);
+  const [preloaderFinished, setPreloaderFinished] = React.useState(false);
 
   // Filter categories
   React.useEffect(() => {
@@ -105,10 +106,13 @@ export default function Products({ data }) {
     }
   };
 
+  if (!preloaderFinished)
+    return (
+      <TopProgressBar preloaderFinished={() => setPreloaderFinished(true)} />
+    );
+
   return (
     <Layout>
-      <TopProgressBar />
-
       <div className="flex">
         <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0 items-center">
           <div className="w-full md:w-1/2 pl-3 pr-3 md:pl-0 md:pr-0">

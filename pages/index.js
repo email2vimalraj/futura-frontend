@@ -1,3 +1,4 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useInView } from "react-intersection-observer";
 
@@ -76,10 +77,13 @@ const ContentSection = () => {
 };
 
 export default function Home() {
+  const [preloaderFinished, setPreloaderFinished] = React.useState(false);
+
+  if (!preloaderFinished)
+    return <Preloader preloaderFinished={() => setPreloaderFinished(true)} />;
+
   return (
     <Layout>
-      <Preloader />
-
       <div className="social absolute top-10 right-10 whitespace-nowrap space-x-3 text-white text-md z-50 clearfix hidden md:flex">
         <a href="/" title="Facebook" target="_blank">
           <FontAwesomeIcon icon={["fab", "facebook-square"]} />

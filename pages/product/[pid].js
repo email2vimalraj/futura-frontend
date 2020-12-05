@@ -10,6 +10,7 @@ export default function Product({ data }) {
   const [imageHolder, setImageHolder] = React.useState(null);
   const [images, setImages] = React.useState([]);
   const [meta, setMeta] = React.useState([]);
+  const [preloaderFinished, setPreloaderFinished] = React.useState(false);
 
   // Set image states
   React.useEffect(() => {
@@ -32,10 +33,13 @@ export default function Product({ data }) {
     }
   }, [data]);
 
+  if (!preloaderFinished)
+    return (
+      <TopProgressBar preloaderFinished={() => setPreloaderFinished(true)} />
+    );
+
   return (
     <Layout>
-      <TopProgressBar />
-
       <div className="flex p-2 md:p-0 md:container md:mx-auto justify-center">
         <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0">
           <div className="flex font-futuraBookRegular text-sm border-b border-solid border-black mb-4 pb-2">
