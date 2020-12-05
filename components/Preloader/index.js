@@ -16,6 +16,17 @@ export default function Preloader() {
       duration: 2000,
     },
   });
+  const progressValue = useSpring({
+    from: {
+      bottom: "0%",
+    },
+    to: {
+      bottom: "100%",
+    },
+    config: {
+      duration: 2000,
+    },
+  });
 
   const preloaderProps = useSpring({
     from: { opacity: 1, zIndex: 100000, height: "100%", width: "100%" },
@@ -38,7 +49,7 @@ export default function Preloader() {
         className={styles.preloader__progress}
         style={progressBarProps}
       >
-        <animated.span style={{ bottom: `${progressBarProps.number}%` }}>
+        <animated.span style={progressValue}>
           {progressBarProps.number.interpolate(
             (value) => `${Math.floor(value)}%`
           )}
