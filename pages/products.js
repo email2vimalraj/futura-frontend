@@ -4,10 +4,12 @@ import Image from "next/image";
 import Layout from "../components/Layout";
 import { API_URL, fetchQuery } from "../utils";
 import TopProgressBar from "../components/TopProgressBar";
+import algoliasearch from "algoliasearch";
 
 const Product = ({ id, image, title, subtitle }) => {
   const [imageProperties, setImageProperties] = React.useState({});
 
+  // set required image properties
   React.useEffect(() => {
     const imageProperty = {};
     let api = API_URL;
@@ -57,10 +59,34 @@ const Product = ({ id, image, title, subtitle }) => {
   );
 };
 
+const client = algoliasearch("ULSDNGXRZ7", "fb3a09417a7f4ee279521630486eb381");
+const index = client.initIndex("Futura_Search_Index");
+
 export default function Products({ data }) {
   const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [products, setProducts] = React.useState([]);
+  const [searchTerms, setSearchTerms] = React.useState([]);
 
+  // capture meta for search
+  React.useEffect(() => {
+    if (products.length > 0) {
+      const result = products.map((product) => {
+        const metas = product.Content.filter(
+          (content) => content.__component === "meta.meta-test"
+        )[0].MetaTest;
+        if (metas.length > 0) {
+          return metas
+            .map((meta) => [meta.meta.MetaName, meta.MetaValue])
+            .flat();
+        }
+        return null;
+      });
+
+      setSearchTerms(result.flat());
+    }
+  }, [products]);
+
+  // Filter categories
   React.useEffect(() => {
     if (selectedCategory) {
       const filteredProducts = data.filter(
@@ -83,6 +109,13 @@ export default function Products({ data }) {
     }
   };
 
+  const handleSearch = async (e) => {
+    const hits = await index.search(e.target.value);
+    if (hits.hits) {
+      setProducts(hits.hits);
+    }
+  };
+
   return (
     <Layout>
       <TopProgressBar />
@@ -94,6 +127,7 @@ export default function Products({ data }) {
               type="text"
               placeholder="Search..."
               className="w-full border border-solid border-gray-700 p-5 font-futuraBookRegular uppercase text-lg text-gray-700 outline-none"
+              onChange={handleSearch}
             />
           </div>
 
@@ -126,24 +160,39 @@ export default function Products({ data }) {
 
           <section>
             <div className="flex flex-wrap justify-center">
-              {products.map((product) => {
-                const productImages = product.Content.filter(
-                  (item) => item.__component === "image.product-images"
-                )[0].ProductImage;
-                const frontImage = productImages.filter(
-                  (image) => image.FrontImage
-                )[0];
+              {!products && <p>No Results</p>}
+              {products &&
+                products.map((product) => {
+                  const productImages = product.Content.filter(
+                    (item) => item.__component === "image.product-images"
+                  )[0].ProductImage;
+                  const frontImage = productImages.filter(
+                    (image) => image.FrontImage
+                  )[0];
+                  const metaTests = product.Content.filter(
+                    (content) => content.__component === "meta.meta-test"
+                  )[0].MetaTest;
 
-                return (
-                  <Product
-                    key={frontImage._id}
-                    id={product._id}
-                    title={product.Name}
-                    subtitle={product.Type}
-                    image={frontImage}
-                  />
-                );
-              })}
+                  return (
+                    <div key={frontImage._id}>
+                      <Product
+                        id={product._id}
+                        title={product.Name}
+                        subtitle={product.Type}
+                        image={frontImage}
+                      />
+                      <ul className="hidden">
+                        {metaTests.map((metatest) => {
+                          return (
+                            <li key={metatest._id}>
+                              {metatest.MetaValue} - {metatest.meta.MetaName}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  );
+                })}
             </div>
           </section>
 
