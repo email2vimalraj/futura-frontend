@@ -15,14 +15,11 @@ const MenuLink = ({ href, text }) => (
 
 const Menu = () => {
   return (
-    <div className="menu pt-0 pr-8 pb-14 pl-8 h-auto md:pr-8 md:pl-8 md:pt-36 md:pb-0 md:h-full md:box-border">
-      <ul className="menu-list mb-8 md:mb-0 text-white text-xs uppercase absolute max-w-xs right-8 left-8 list-none">
+    <div className="menu pt-0 pr-8 pb-0 pl-8 md:pr-8 md:pl-8 md:pt-36 md:pb-0 md:h-full md:box-border">
+      <ul className="menu-list mb-8 md:mb-0 text-white text-xs uppercase md:absolute max-w-xs right-8 left-8 list-none">
         <MenuLink href="/" text="Home" />
         <MenuLink href="/about" text="About Us" />
         <MenuLink href="/products" text="Products" />
-        <MenuLink href="/" text="Projects" />
-        <MenuLink href="/" text="News Events" />
-        <MenuLink href="/" text="Technology" />
         <MenuLink href="/contactus" text="Contact Us" />
       </ul>
 
@@ -83,7 +80,7 @@ const Nav = () => {
           </div>
 
           {openMenu && (
-            <>
+            <div className="flex flex-col md:block h-screen md:h-auto">
               <div className="w-full flex justify-center mb-6 md:hidden">
                 <div
                   className="btn-menu-i border border-solid border-white rounded-br-xl cursor-pointer w-10 h-10 text-center"
@@ -92,9 +89,10 @@ const Nav = () => {
                   <img src="/logo.svg" alt="Futura" className="w-7 pt-1 pl-1" />
                 </div>
               </div>
+
               <Menu />
 
-              <div className="social absolute whitespace-nowrap space-x-6 text-white text-md z-50 clearfix flex md:hidden bottom-10 justify-center w-full">
+              <div className="social whitespace-nowrap space-x-6 text-white text-md z-50 flex md:hidden justify-center w-full">
                 <a href="/" title="Facebook" target="_blank">
                   <FontAwesomeIcon icon={["fab", "facebook-square"]} />
                 </a>
@@ -119,7 +117,7 @@ const Nav = () => {
                   <FontAwesomeIcon icon={["fab", "twitter-square"]} />
                 </a>
               </div>
-            </>
+            </div>
           )}
         </nav>
       </animated.div>
