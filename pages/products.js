@@ -35,7 +35,7 @@ const Product = ({ id, image, title, subtitle }) => {
       <Link href={`/product/${id}`}>
         <a>
           <div className="block bg-gray-400 overflow-hidden m-3 w-80 float-left clear-right">
-            <div className="w-72 h-72 absolute z-10 bg-transparent bg-opacity-0 hover:bg-black hover:bg-opacity-80 m-4 opacity-0 hover:opacity-100">
+            <div className="hidden md:block w-72 h-72 absolute z-10 bg-transparent bg-opacity-0 hover:bg-black hover:bg-opacity-80 m-4 opacity-0 hover:opacity-100">
               <div className="relative font-futuraBookRegular text-3xl uppercase text-white m-auto text-center pt-20 pb-20">
                 <span>{title}</span>
               </div>
@@ -52,6 +52,14 @@ const Product = ({ id, image, title, subtitle }) => {
                 height={320}
                 layout="responsive"
               />
+              <div className="block md:hidden">
+                <p className="text-center uppercase text-2xl text-gray-700 font-futuraBookRegular">
+                  {title}
+                </p>
+                <p className="text-center lowercase text-xl text-gray-600 font-futuraBookRegular">
+                  {subtitle}
+                </p>
+              </div>
             </div>
           </div>
         </a>
@@ -103,7 +111,7 @@ export default function Products({ data }) {
 
       <div className="flex">
         <div className="flex flex-col bg-white container mx-auto justify-start pt-10 mr-0 items-center">
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2 pl-3 pr-3 md:pl-0 md:pr-0">
             <input
               type="text"
               placeholder="Search..."
@@ -112,7 +120,7 @@ export default function Products({ data }) {
             />
           </div>
 
-          <span className="font-futuraBookRegular text-md lowercase italic text-gray-800 pt-3 pb-3 leading-4 text-center mb-8">
+          <span className="font-futuraBookRegular text-md lowercase italic text-gray-800 pt-3 pb-3 leading-4 text-center mb-2 md:mb-8">
             please enter the text as "beam angle 12" or "warm white downlights"
             or "round shape surface"
           </span>
