@@ -15,13 +15,13 @@ export default function ContactUs() {
             </div>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col p-2 md:p-0">
             <a href="https://goo.gl/maps/MNpXpC3GVQJDqUJC9" target="_blank">
               <img src="/map.png" alt="Map" />
             </a>
 
             <div className="flex flex-col md:flex-row space-x-0 md:space-x-6 mt-3 mb-5">
-              <div className="flex flex-col font-futuraBookRegular w-full md:w-1/2">
+              <div className="flex flex-col font-futuraBookRegular w-full md:w-3/2">
                 <span className="uppercase text-gray-500 mb-2">
                   Drop your details, we will contact you!
                 </span>
@@ -76,7 +76,7 @@ export default function ContactUs() {
                 </form>
               </div>
 
-              <div className="flex flex-col space-y-4 mt-3 font-futuraBookRegular text-gray-500">
+              <div className="flex flex-col space-y-4 mt-3 font-futuraBookRegular text-gray-500 w-full">
                 <div className="flex flex-col bg-gray-200 p-2">
                   <span className="uppercase text-lg tracking-wider text-gray-600">
                     Registered Head office

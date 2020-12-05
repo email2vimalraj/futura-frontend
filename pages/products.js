@@ -5,34 +5,57 @@ import Layout from "../components/Layout";
 import { API_URL, fetchQuery } from "../utils";
 import TopProgressBar from "../components/TopProgressBar";
 
-const Product = ({ id, image, title, subtitle }) => (
-  <div className="">
-    <Link href={`/product/${id}`}>
-      <a>
-        <div className="block bg-gray-400 overflow-hidden m-3 w-80 float-left clear-right">
-          <div className="w-72 h-72 absolute z-10 bg-transparent bg-opacity-0 hover:bg-black hover:bg-opacity-80 m-4 opacity-0 hover:opacity-100">
-            <div className="relative font-futuraBookRegular text-3xl uppercase text-white m-auto text-center pt-20 pb-20">
-              <span>{title}</span>
-            </div>
-            <div className="relative font-futuraBookRegular text-xl lowercase text-gray-400 m-auto text-center pt-15 pb-15">
-              <span>{subtitle}</span>
-            </div>
-          </div>
+const Product = ({ id, image, title, subtitle }) => {
+  const [imageProperties, setImageProperties] = React.useState({});
 
-          <div>
-            <Image
-              src={`${API_URL}${image.Image.formats.medium.url}`}
-              alt={`${title} - ${subtitle}`}
-              width={`${API_URL}${image.Image.formats.medium.width}`}
-              height={`${API_URL}${image.Image.formats.medium.height}`}
-              layout="responsive"
-            />
+  React.useEffect(() => {
+    const imageProperty = {};
+    let api = API_URL;
+    if (image.Image.provider !== "local") {
+      api = "";
+    }
+    if (image.Image.formats.medium) {
+      imageProperty.url = `${api}${image.Image.formats.medium.url}`;
+      imageProperty.width = image.Image.formats.medium.width;
+      imageProperty.height = image.Image.formats.medium.height;
+    } else {
+      // the image is already smaller in size
+      imageProperty.url = `${api}${image.Image.url}`;
+      imageProperty.width = image.Image.width;
+      imageProperty.height = image.Image.height;
+    }
+    setImageProperties(imageProperty);
+  }, [image]);
+
+  return (
+    <div className="">
+      <Link href={`/product/${id}`}>
+        <a>
+          <div className="block bg-gray-400 overflow-hidden m-3 w-80 float-left clear-right">
+            <div className="w-72 h-72 absolute z-10 bg-transparent bg-opacity-0 hover:bg-black hover:bg-opacity-80 m-4 opacity-0 hover:opacity-100">
+              <div className="relative font-futuraBookRegular text-3xl uppercase text-white m-auto text-center pt-20 pb-20">
+                <span>{title}</span>
+              </div>
+              <div className="relative font-futuraBookRegular text-xl lowercase text-gray-400 m-auto text-center pt-15 pb-15">
+                <span>{subtitle}</span>
+              </div>
+            </div>
+
+            <div>
+              <Image
+                src={`${imageProperties.url}`}
+                alt={`${title} - ${subtitle}`}
+                width={320}
+                height={320}
+                layout="responsive"
+              />
+            </div>
           </div>
-        </div>
-      </a>
-    </Link>
-  </div>
-);
+        </a>
+      </Link>
+    </div>
+  );
+};
 
 export default function Products({ data }) {
   const [selectedCategory, setSelectedCategory] = React.useState(null);

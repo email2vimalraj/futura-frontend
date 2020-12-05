@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+
 import Layout from "../../components/Layout";
 import { API_URL, fetchQuery } from "../../utils";
 import TopProgressBar from "../../components/TopProgressBar";
@@ -53,10 +54,12 @@ export default function Product({ data }) {
             <div className="flex flex-col space-y-4">
               {imageHolder && (
                 <Image
-                  src={`${API_URL}${imageHolder.Image.url}`}
+                  src={`${
+                    imageHolder.Image.provider === "local" ? API_URL : ""
+                  }${imageHolder.Image.url}`}
                   alt={imageHolder.Image.alternativeText}
-                  width={imageHolder.Image.width / 2}
-                  height={imageHolder.Image.height / 2}
+                  width={500}
+                  height={500}
                   className="bg-gray-200"
                 />
               )}
@@ -69,10 +72,12 @@ export default function Product({ data }) {
                     className="mr-3 cursor-pointer"
                   >
                     <Image
-                      src={`${API_URL}${image.Image.formats.thumbnail.url}`}
+                      src={`${
+                        imageHolder.Image.provider === "local" ? API_URL : ""
+                      }${image.Image.formats.thumbnail.url}`}
                       alt={`${image.Image.alternativeText}`}
-                      width={image.Image.formats.thumbnail.width / 2}
-                      height={image.Image.formats.thumbnail.height / 2}
+                      width={78}
+                      height={78}
                       className="bg-gray-200"
                     />
                   </div>
@@ -117,7 +122,9 @@ export default function Product({ data }) {
               return (
                 <Image
                   key={image._id}
-                  src={`${API_URL}${image.url}`}
+                  src={`${image.provider === "local" ? API_URL : ""}${
+                    image.url
+                  }`}
                   alt={image.alternativeText}
                   width={image.width / 2}
                   height={image.height / 2}
