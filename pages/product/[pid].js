@@ -93,11 +93,11 @@ export default function Product({ data }) {
                 {data.Description}
               </p>
 
-              <div className="flex flex-col md:flex-row flex-wrap font-futuraBookRegular">
+              <div className="flex flex-row flex-wrap font-futuraBookRegular justify-center">
                 {meta.map((item) => (
                   <div
                     key={item._id}
-                    className="border border-solid border-gray-800 p-3 w-full md:w-1/4 mb-3 mr-0 md:mr-3"
+                    className="border border-solid border-gray-800 p-3 w-40 md:w-1/4 mb-3 mr-1 md:mr-3"
                   >
                     <h3 className="uppercase text-sm tracking-wide">
                       {item.meta.MetaName}
