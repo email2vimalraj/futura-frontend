@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Layout from "../components/Layout";
-import { API_URL, fetchQuery } from "../utils";
-import TopProgressBar from "../components/TopProgressBar";
 import algoliasearch from "algoliasearch";
+
+import Layout from "../components/Layout";
+import TopProgressBar from "../components/TopProgressBar";
+import { API_URL, fetchQuery } from "../utils";
 
 const Product = ({ id, image, title, subtitle }) => {
   const [imageProperties, setImageProperties] = React.useState({});
@@ -65,26 +66,6 @@ const index = client.initIndex("Futura_Search_Index");
 export default function Products({ data }) {
   const [selectedCategory, setSelectedCategory] = React.useState(null);
   const [products, setProducts] = React.useState([]);
-  const [searchTerms, setSearchTerms] = React.useState([]);
-
-  // capture meta for search
-  React.useEffect(() => {
-    if (products.length > 0) {
-      const result = products.map((product) => {
-        const metas = product.Content.filter(
-          (content) => content.__component === "meta.meta-test"
-        )[0].MetaTest;
-        if (metas.length > 0) {
-          return metas
-            .map((meta) => [meta.meta.MetaName, meta.MetaValue])
-            .flat();
-        }
-        return null;
-      });
-
-      setSearchTerms(result.flat());
-    }
-  }, [products]);
 
   // Filter categories
   React.useEffect(() => {
@@ -195,26 +176,6 @@ export default function Products({ data }) {
                 })}
             </div>
           </section>
-
-          {/* <section>
-            <div className="flex flex-wrap justify-center">
-              {data.map((item) => {
-                const cutout = item.Content.filter(
-                  (content) => content.__component === "product.cutout"
-                );
-
-                return (
-                  <Product
-                    key={item._id}
-                    id={item._id}
-                    title={item.Name}
-                    subtitle={item.Type}
-                    image={`${API_URL}${cutout[0].Images[0].url}`}
-                  />
-                );
-              })}
-            </div>
-          </section> */}
         </div>
 
         <div
