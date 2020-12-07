@@ -1,6 +1,8 @@
+import React from "react";
+import Login from "./Login";
 import Nav from "./Nav";
 
-const Footer = () => {
+const Footer = ({ setShowLogin }) => {
   return (
     <footer className="footer bg-black text-white z-20 inline-block font-futuraBookRegular tracking-wider leading-8">
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 space-x-0 lg:space-x-10 flex-nowrap p-4 container mx-auto justify-center">
@@ -23,7 +25,12 @@ const Footer = () => {
               <a href="#">R & D</a>
             </li>
             <li className="mt-1">
-              <a href="#">Sign In</a>
+              <div
+                className="cursor-pointer"
+                onClick={() => setShowLogin(true)}
+              >
+                Sign In
+              </div>
             </li>
           </ul>
         </div>
@@ -119,14 +126,18 @@ const Footer = () => {
 };
 
 const Layout = ({ children }) => {
+  const [showLogin, setShowLogin] = React.useState(false);
+
   return (
     <div className="w-screen h-screen bg-white relative">
+      {showLogin && <Login onClose={() => setShowLogin(false)} />}
+
       <Nav />
 
       <div className="sections-wrap relative flex flex-col">
         {children}
 
-        <Footer />
+        <Footer setShowLogin={setShowLogin} />
       </div>
     </div>
   );
