@@ -24,16 +24,16 @@ const Footer = ({ setShowLogin }) => {
           </span>
 
           <ul className="uppercase mt-3 text-sm list-none text-center lg:text-left">
-            <li className="mt-1">
+            <li className="mt-1 hover:text-yellow-500">
               <a href="#">CSR Activity</a>
             </li>
-            <li className="mt-1">
+            <li className="mt-1 hover:text-yellow-500">
               <a href="/publications">Publications</a>
             </li>
-            <li className="mt-1">
+            <li className="mt-1 hover:text-yellow-500">
               <a href="#">R & D</a>
             </li>
-            <li className="mt-1">
+            <li className="mt-1 hover:text-yellow-500">
               {isLoggedIn ? (
                 <div className="cursor-pointer" onClick={() => logout()}>
                   Sign Out
@@ -59,16 +59,16 @@ const Footer = ({ setShowLogin }) => {
           </span>
 
           <ul className="uppercase mt-3 text-sm list-none text-center lg:text-left">
-            <li className="mt-1">
+            <li className="mt-1 hover:text-yellow-500">
               <a href="#">Testimonials</a>
             </li>
-            <li className="mt-1">
+            <li className="mt-1 hover:text-yellow-500">
               <a href="#">Case Study</a>
             </li>
-            <li className="mt-1">
+            <li className="mt-1 hover:text-yellow-500">
               <a href="#">News & Events</a>
             </li>
-            <li className="mt-1">
+            <li className="mt-1 hover:text-yellow-500">
               <a href="#">Company Info</a>
             </li>
           </ul>
@@ -86,13 +86,13 @@ const Footer = ({ setShowLogin }) => {
             <input
               type="text"
               placeholder="please enter your email id"
-              className="border-0 border-b border-solid border-gray-300 bg-gray-900 text-white outline-none h-10 text-xs w-full pl-2.5 border-box placeholder-white"
+              className="border-0 border-b border-solid border-gray-300 bg-gray-900 text-white outline-none h-10 text-xs w-full pl-2.5 border-box placeholder-white focus:border-yellow-500"
             />
             <span className="text-xs text-gray-400 mt-2">
               please drop in your valid email id to get more updates from us and
               keep in touch
             </span>
-            <button className="uppercase bg-gray-50 text-black ml-auto p-2 text-sm mt-2 outline-none">
+            <button className="uppercase bg-gray-50 text-black ml-auto p-2 text-sm mt-2 outline-none hover:bg-yellow-500 hover:text-white rounded-md">
               Subscribe
             </button>
           </div>
