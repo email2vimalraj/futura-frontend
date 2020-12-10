@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Layout from "../components/Layout";
 import TopProgressBar from "../components/TopProgressBar";
 import { fetchQuery } from "../utils";
+import { AuthContext } from "../components/AuthContext";
 
 const Publications = ({ data, bordercolor }) => {
   return (
@@ -41,6 +42,7 @@ const Publications = ({ data, bordercolor }) => {
 
 export default function Publication({ publications, premiumPublications }) {
   const [preloaderFinished, setPreloaderFinished] = React.useState(false);
+  const { isLoggedIn } = React.useContext(AuthContext);
 
   if (!preloaderFinished)
     return (
@@ -70,7 +72,7 @@ export default function Publication({ publications, premiumPublications }) {
             </div>
           </div>
 
-          {premiumPublications.length > 0 && (
+          {isLoggedIn && premiumPublications.length > 0 && (
             <div className="flex flex-col items-center bg-yellow-100 p-3 mb-5">
               <span className="uppercase font-futuraBookRegular text-2xl tracking-wider mb-2 text-gray-500">
                 Premium Catalog
