@@ -1,8 +1,17 @@
 import React from "react";
+import { AuthContext } from "./AuthContext";
 import Login from "./Login";
 import Nav from "./Nav";
 
 const Footer = ({ setShowLogin }) => {
+  const { isLoggedIn, logout } = React.useContext(AuthContext);
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      setShowLogin(false);
+    }
+  }, [isLoggedIn]);
+
   return (
     <footer className="footer bg-black text-white z-20 inline-block font-futuraBookRegular tracking-wider leading-8">
       <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 space-x-0 lg:space-x-10 flex-nowrap p-4 container mx-auto justify-center">
@@ -25,12 +34,18 @@ const Footer = ({ setShowLogin }) => {
               <a href="#">R & D</a>
             </li>
             <li className="mt-1">
-              <div
-                className="cursor-pointer"
-                onClick={() => setShowLogin(true)}
-              >
-                Sign In
-              </div>
+              {isLoggedIn ? (
+                <div className="cursor-pointer" onClick={() => logout()}>
+                  Sign Out
+                </div>
+              ) : (
+                <div
+                  className="cursor-pointer"
+                  onClick={() => setShowLogin(true)}
+                >
+                  Sign In
+                </div>
+              )}
             </li>
           </ul>
         </div>

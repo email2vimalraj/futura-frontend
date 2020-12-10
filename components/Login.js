@@ -1,6 +1,21 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { AuthContext } from "./AuthContext";
+import LoadingIcon from "./LoadingIcon";
+
 export default function Login({ onClose }) {
+  const { login } = React.useContext(AuthContext);
+  const [identifier, setIdentifier] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+
+  const handleLogin = async () => {
+    setLoading(true);
+    await login(identifier, password);
+    setLoading(false);
+  };
+
   return (
     <div
       className="fixed w-80 md:w-full font-futuraBookRegular"
@@ -21,7 +36,7 @@ export default function Login({ onClose }) {
 
           <form className="pt-6 pb-2 my-2">
             <div className="mb-4">
-              <label className="block text-sm font-bold mb-2" for="email">
+              <label className="block text-sm font-bold mb-2" htmlFor="email">
                 Email Address
               </label>
               <input
@@ -29,11 +44,16 @@ export default function Login({ onClose }) {
                 id="email"
                 type="text"
                 placeholder="Email Address"
+                disabled={loading}
+                onChange={(e) => setIdentifier(e.target.value)}
               />
             </div>
 
             <div className="mb-6">
-              <label className="block text-sm font-bold mb-2" for="password">
+              <label
+                className="block text-sm font-bold mb-2"
+                htmlFor="password"
+              >
                 Password
               </label>
               <input
@@ -41,15 +61,29 @@ export default function Login({ onClose }) {
                 id="password"
                 type="password"
                 placeholder="Password"
+                disabled={loading}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div className="block md:flex items-center justify-between">
               <div>
                 <button
-                  className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-2 px-4 rounded border-b-4 border-yellow-600 outline-none focus:bg-yellow-500"
+                  className={`inline-flex items-center bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-bold py-2 px-4 rounded border-b-4 border-yellow-600 outline-none focus:bg-yellow-500 ${
+                    loading || identifier === "" || password === ""
+                      ? "cursor-not-allowed"
+                      : ""
+                  }`}
                   type="button"
+                  disabled={identifier === "" || password === ""}
+                  onClick={() => handleLogin()}
                 >
+                  {loading && (
+                    <>
+                      <LoadingIcon />
+                      &nbsp;
+                    </>
+                  )}
                   Sign In
                 </button>
               </div>

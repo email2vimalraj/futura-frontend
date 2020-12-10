@@ -8,6 +8,7 @@ import {
   faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import "tailwindcss/tailwind.css";
+import { AuthContextProvider } from "../components/AuthContext";
 import "../styles/globals.css";
 
 library.add(fab, faEnvelope);
@@ -15,7 +16,11 @@ library.add(far, faArrowAltCircleRight);
 library.add(fas, faDownload);
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <AuthContextProvider>
+      <Component {...pageProps} />
+    </AuthContextProvider>
+  );
 }
 
 export default MyApp;
