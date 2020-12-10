@@ -1,16 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Layout from "../../components/Layout";
 import { API_URL, fetchQuery } from "../../utils";
 import TopProgressBar from "../../components/TopProgressBar";
+import { AuthContext } from "../../components/AuthContext";
 
 export default function Product({ data }) {
   const [imageHolder, setImageHolder] = React.useState(null);
   const [images, setImages] = React.useState([]);
   const [meta, setMeta] = React.useState([]);
   const [preloaderFinished, setPreloaderFinished] = React.useState(false);
+  const { isLoggedIn } = React.useContext(AuthContext);
 
   // Set image states
   React.useEffect(() => {
@@ -45,13 +48,20 @@ export default function Product({ data }) {
           <div className="flex font-futuraBookRegular text-sm border-b border-solid border-black mb-4 pb-2">
             <div className="uppercase">
               <Link href="/products">
-                <a>Products</a>
+                <a className="hover:text-yellow-500">Products</a>
               </Link>
               &nbsp;&gt;&nbsp;
               <span>{data.category.CategoryName}</span>
             </div>
 
-            {/* <div className="ml-auto uppercase">Download this product</div> */}
+            {isLoggedIn && data.ProductPDF && (
+              <div className="ml-auto uppercase hover:text-yellow-500">
+                <a href={data.ProductPDF.url} target="__blank">
+                  <FontAwesomeIcon icon="cloud-download-alt" />
+                  &nbsp; Download this product
+                </a>
+              </div>
+            )}
           </div>
 
           <div className="flex md:space-x-10 flex-col md:flex-row">
