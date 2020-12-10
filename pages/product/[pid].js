@@ -92,7 +92,7 @@ export default function Product({ data }) {
                       alt={`${image.Image.alternativeText}`}
                       width={78}
                       height={78}
-                      className="bg-gray-200"
+                      className="bg-gray-200 hover:bg-gray-500 hover:opacity-50"
                     />
                   </div>
                 ))}
